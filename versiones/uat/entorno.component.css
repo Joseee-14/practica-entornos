@@ -1,0 +1,8 @@
+.entorno { background: #edf4ff; border: 1px solid #bdd0ed; border-top: 6px solid #235bb0; border-radius: 18px; padding: 40px; }
+.etiqueta { display: inline-block; background: #235bb0; color: white; padding: 8px 13px; border-radius: 6px; font-size: 13px; font-weight: bold; }
+h1 { font-size: clamp(28px, 5vw, 42px); margin: 24px 0 16px; letter-spacing: -1px; }
+.bienvenida { font-size: 18px; line-height: 1.6; }
+h2 { color: #235bb0; font-size: 23px; margin-top: 30px; }
+p { line-height: 1.6; }
+.rama { display: inline-block; background: white; padding: 10px 14px; border: 1px solid #bdd0ed; border-radius: 7px; margin-top: 14px; }
+@media (max-width: 620px) { .entorno { padding: 25px; } }

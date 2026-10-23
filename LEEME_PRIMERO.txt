@@ -1,0 +1,155 @@
+PRÁCTICA 2 — JOSÉ
+
+ESTADO
+La aplicación y las versiones de los tres entornos están preparadas.
+Todavía debes crear el repositorio remoto, publicar en Vercel, crear el tablero
+Trello y completar las evidencias. El Word no es todavía una entrega final.
+
+1. ABRIR LA APLICACIÓN
+Extrae el ZIP. Entra en la carpeta practica-entornos (donde está package.json).
+En la barra de dirección del Explorador escribe cmd y pulsa Intro.
+Comprueba:
+  node -v
+  npm -v
+  git --version
+Si falta Node, instala Node.js 24 LTS desde https://nodejs.org/
+Si falta Git, instálalo desde https://git-scm.com/downloads
+Después abre una terminal nueva en la carpeta.
+Ejecuta una orden cada vez:
+  npm ci
+  npm start
+Abre http://localhost:4200/
+Para detener el servidor usa Ctrl+C. Esta aplicación no se abre con XAMPP.
+Si Windows pregunta si deseas terminar el trabajo por lotes, acepta.
+
+2. CREAR TRELLO ANTES DE EMPEZAR LAS PUBLICACIONES
+Abre https://trello.com/ y crea el tablero con las listas y tarjetas de TRELLO.txt.
+Empieza en Backlog, selecciona tareas para To Do y mueve a In Progress la que
+estés realizando. Pasa por QA al probarla, UAT al validarla y Done al terminar.
+No muevas a Done las publicaciones que todavía no hayas comprobado.
+
+3. GUARDAR LA VERSIÓN INICIAL EN GIT
+En la misma carpeta, con el servidor detenido, ejecuta:
+  git init
+  git branch -M main
+Configura TU identidad en este repositorio. Sustituye el correo de ejemplo por
+el tuyo (puedes usar el correo privado noreply que muestra GitHub en Settings > Emails):
+  git config user.name "Jose"
+  git config user.email "TU_CORREO_DE_GITHUB"
+No copies el correo de ejemplo literalmente.
+  git add .
+  git commit -m "Crear aplicacion Angular con componente de produccion"
+
+4. CREAR EL REPOSITORIO EN GITHUB
+En https://github.com/new crea un repositorio llamado practica-entornos.
+Hazlo público para que el profesor pueda revisarlo. Déjalo vacío: no añadas
+README, licencia ni gitignore, porque la carpeta ya contiene sus archivos.
+El repositorio elegido es https://github.com/Joseee-14/practica-entornos
+Ejecuta:
+  git remote add origin https://github.com/Joseee-14/practica-entornos.git
+  git push -u origin main
+Si se abre el navegador, inicia sesión con tu cuenta.
+Comprueba en GitHub que aparecen src, package.json y los demás archivos.
+
+5. PUBLICAR PRODUCCIÓN
+En https://vercel.com/ entra con GitHub y añade un proyecto importando
+practica-entornos. Autoriza el acceso a ese repositorio si lo solicita.
+Usa estos valores:
+  Framework: Angular
+  Root Directory: raíz del repositorio (sin subcarpeta)
+  Build Command: npm run build
+  Output Directory: dist/practica-entornos/browser
+  Install Command: npm ci
+  Node.js: 22.x o 24.x
+  Production Branch: main
+El archivo vercel.json ya define compilación y salida.
+Pulsa Deploy y espera a que termine. Abre el dominio de producción y comprueba
+el mensaje Entorno de producción y el color verde.
+En Settings > Deployment Protection, desactiva Vercel Authentication para que
+el profesor pueda abrir los previews. Guarda. Los nombres de menús pueden variar.
+Guarda la URL de producción y una captura con la barra de direcciones visible.
+
+6. CREAR Y PUBLICAR QA
+Desde la terminal, dentro de practica-entornos:
+  git switch -c qa-pending
+  node scripts/cambiar-entorno.cjs qa
+  npm run build
+Si la compilación termina bien:
+  git add src/app/entorno
+  git commit -m "Configurar entorno QA con identificacion naranja"
+  git push -u origin qa-pending
+En Vercel > Deployments abre el despliegue de qa-pending.
+Copia la URL fija asociada a la rama, no solamente la URL de un despliegue concreto.
+Comprueba mensaje Entorno de pruebas QA y naranja. Guarda URL y captura.
+
+7. CREAR Y PUBLICAR UAT
+Crea UAT desde main, no desde QA:
+  git switch main
+  git switch -c uat-pending
+  node scripts/cambiar-entorno.cjs uat
+  npm run build
+Si la compilación termina bien:
+  git add src/app/entorno
+  git commit -m "Configurar entorno UAT con identificacion azul"
+  git push -u origin uat-pending
+Abre su Preview en Vercel, copia la URL fija de uat-pending y comprueba azul
+y Entorno de aceptación UAT. Guarda URL y captura.
+  git switch main
+
+8. VERIFICAR LAS TRES VERSIONES
+Abre las tres URL en incógnito, sin iniciar sesión. Deben mostrar:
+  main: PROD / verde
+  qa-pending: QA / naranja
+  uat-pending: UAT / azul
+Si QA o UAT solicitan acceso, revisa Deployment Protection.
+Si falta un despliegue, créalo desde Vercel seleccionando explícitamente su rama.
+Si aparece la versión equivocada, revisa la rama del despliegue y su último commit.
+No fusiones ahora las tres ramas: cada una debe conservar su versión.
+
+9. PUNTO DEL GITIGNORE
+Solo después de comprobar las URL, abre .gitignore y añade al final:
+  /src/app/entorno/
+Guarda y ejecuta:
+  git add .gitignore
+  git commit -m "Anadir regla del componente a gitignore"
+  git push
+Para llevar únicamente esa regla a las otras ramas:
+  git switch qa-pending
+  git checkout main -- .gitignore
+  git commit -m "Anadir regla de gitignore en QA"
+  git push
+  git switch uat-pending
+  git checkout main -- .gitignore
+  git commit -m "Anadir regla de gitignore en UAT"
+  git push
+  git switch main
+
+ACLARACIÓN TÉCNICA: Git seguirá detectando los cambios de ese componente porque
+ya está versionado. Añadir una regla no deja de seguir archivos existentes.
+No ejecutes git rm --cached sobre el componente: lo quitaría de los siguientes
+clones y Vercel no podría compilar. Conservamos el componente en las tres ramas
+y documentamos esta limitación del enunciado. Si el profesor exige dejar de
+versionarlo de verdad, habrá que acordar una plantilla que se regenere al compilar.
+No se ha implementado ese mecanismo adicional en esta práctica sencilla.
+
+10. EVIDENCIAS Y ENTREGA
+Abre documentacion/Informe_Jose_PENDIENTE.docx y complétalo con:
+- Tu enlace de GitHub.
+- Captura del selector de ramas con main, qa-pending y uat-pending.
+- Las tres URL y capturas de PROD, QA y UAT funcionando.
+- Evidencias de commits de las tres ramas.
+- URL de Trello y capturas de las listas, tarjetas y actividad de movimiento.
+- Explicación del proceso real y de la limitación de .gitignore.
+Para ver el historial conjunto:
+  git log --all --graph --oneline --decorate
+No entregues el documento con campos PENDIENTE ni inventes capturas.
+Cuando termines, guarda una copia como Informe_Jose.docx y, si te piden PDF,
+exporta a PDF desde Word. Conserva el original editable.
+
+EXPLICACIÓN BREVE DEL CÓDIGO
+App es el componente principal. Importa EntornoComponent y lo muestra con la
+etiqueta app-entorno. El componente de entorno contiene texto HTML y estilos CSS.
+Standalone significa que se importa directamente, sin crear un módulo adicional.
+El script cambiar-entorno solo copia dos archivos: equivale a sustituir a mano
+el HTML y el CSS. Git guarda una versión diferente en cada rama.
+Vercel descarga la rama y ejecuta npm run build para generar el sitio estático.

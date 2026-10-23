@@ -1,0 +1,43 @@
+TABLERO: Práctica DAW: Gestión de entornos Angular
+
+LISTAS EN ESTE ORDEN
+Backlog
+To Do
+In Progress
+QA
+UAT
+Done
+
+Crea cada tarjeta y pega su descripción. Muévelas según el trabajo real.
+Conserva evidencias de actividad; una captura final de Done por sí sola no
+demuestra el recorrido por las columnas.
+
+1. Crear el proyecto Angular
+Descripción: Revisar la aplicación, ejecutar npm ci y npm start y comprobar título, bienvenida y componente anidado.
+
+2. Inicializar y configurar el repositorio Git
+Descripción: Inicializar Git, establecer main y configurar nombre y correo. Guardar la versión inicial.
+
+3. Crear el repositorio remoto en GitHub
+Descripción: Crear practica-entornos, enlazar origin y subir main. Comprobar los archivos en GitHub.
+
+4. Crear las ramas main, qa-pending y uat-pending
+Descripción: Crear QA y UAT desde main y guardar en cada una el componente con el mensaje y color correctos.
+
+5. Configurar el despliegue de producción en Vercel
+Descripción: Importar el repositorio, configurar main como producción y verificar la página verde.
+
+6. Configurar el despliegue del entorno QA
+Descripción: Subir qa-pending, localizar su Preview y guardar su URL fija. Verificar el color naranja.
+
+7. Configurar el despliegue del entorno UAT
+Descripción: Subir uat-pending, localizar su Preview y guardar su URL fija. Verificar el color azul.
+
+8. Comprobar las URL y el funcionamiento de los tres entornos
+Descripción: Abrir las tres URL en incógnito. Confirmar acceso sin login, rama, texto y color. Guardar capturas.
+
+9. Añadir componente a .gitignore
+Descripción: Añadir la ruta tras validar las URL. Conservar el componente versionado para Vercel y documentar que la regla no ignora archivos ya seguidos.
+
+10. Preparar el documento de entrega
+Descripción: Añadir enlaces reales, capturas de ramas, entornos, commits y Trello. Revisar que no quede ningún campo pendiente.
